@@ -132,25 +132,36 @@ AUTH_SERVICE_URL=http://localhost:3000
 GAME_SERVICE_URL=http://localhost:3001
 ```
 
-# 5. Setup Prisma Database
-Run these commands inside EACH service folder.
-
-## Generate Prisma Client
-
+# 5.	Setup Database
+Create the MySQL database:
 ```bash
+CREATE DATABASE wspeedrun_db;
+```
+
+Import the provided SQL file into the database.
+Example using MySQL CLI: mysql -u root -p wspeedrun_db < database/clean.sql
+After importing the SQL file, generate Prisma Client inside EACH service folder.
+
+## AUTH SERVICE
+```bash
+cd auth-service
 npx prisma generate
 ```
 
-## Run Migration
-
+## GAME SERVICE
 ```bash
-npx prisma migrate dev
+cd game-service
+npx prisma generate
 ```
 
-This command will:
-- create tables
-- run migrations
-- generate Prisma Client
+## RUN SERVICE
+
+```bash
+cd run-service
+npx prisma generate
+```
+### Notes
+Database tavles are created using the provided SQL file Prisma Clients is used for databasse model generation and database access
 
 # 6. Run the Services
 Each service must run in separate terminals.
@@ -252,6 +263,3 @@ npx prisma migrate dev
 ```bash
 npx prisma studio
 ```
-
-# Author
-Michelle Santoso
